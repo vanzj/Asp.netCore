@@ -34,8 +34,13 @@ namespace NewsPublish.Web
             });
             services.AddDbContext<Db>(options =>
                options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));//添加Mysql支持
-
+            //服务注入
+            services.AddTransient<BannerService>();
+            services.AddTransient<CommetService>();
+            services.AddTransient<Db>();
+            services.AddTransient<NewsService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,9 +63,14 @@ namespace NewsPublish.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+ 
     }
 }

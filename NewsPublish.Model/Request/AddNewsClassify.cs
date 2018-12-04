@@ -12,7 +12,7 @@ namespace NewsPublish.Model.Request
             get;
             set;
         }
-        public string Sort
+        public int Sort
         {
             get;
             set;

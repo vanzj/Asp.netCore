@@ -16,7 +16,7 @@ namespace NewsPublish.Model.Entity
             get;
             set;
         }
-        public string Sort
+        public int Sort
         {
             get;
             set;

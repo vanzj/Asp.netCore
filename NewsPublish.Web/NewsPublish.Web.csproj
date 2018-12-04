@@ -2,14 +2,201 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NewsPulish.DAL\NewsPulish.DAL.csproj" />
+    <ProjectReference Include="..\NewsPublish.Service\NewsPublish.Service.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\admin\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Areas\admin\" />
+    <Folder Include="Areas\admin\Controllers\" />
+    <Folder Include="Areas\admin\Data\" />
+    <Folder Include="Areas\admin\Models\" />
+    <Folder Include="Areas\admin\Views\" />
+    <Folder Include="Areas\admin\Views\Home\" />
+    <Folder Include="Areas\admin\Views\Banner\" />
+    <Folder Include="Areas\admin\Views\News\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Admin\css\H-ui.admin.css" />
+    <Content Remove="wwwroot\Admin\css\H-ui.css" />
+    <Content Remove="wwwroot\Admin\css\H-ui.login.css" />
+    <Content Remove="wwwroot\Admin\css\dropzone.css" />
+    <Content Remove="wwwroot\Admin\css\lightbox.css" />
+    <Content Remove="wwwroot\Admin\font\FontAwesome.otf" />
+    <Content Remove="wwwroot\Admin\font\font-awesome-ie7.css" />
+    <Content Remove="wwwroot\Admin\font\font-awesome-ie7.min.css" />
+    <Content Remove="wwwroot\Admin\font\font-awesome.css" />
+    <Content Remove="wwwroot\Admin\font\font-awesome.min.css" />
+    <Content Remove="wwwroot\Admin\font\fontawesome-webfont.eot" />
+    <Content Remove="wwwroot\Admin\font\fontawesome-webfont.svg" />
+    <Content Remove="wwwroot\Admin\font\fontawesome-webfont.ttf" />
+    <Content Remove="wwwroot\Admin\font\fontawesome-webfont.woff" />
+    <Content Remove="wwwroot\Admin\Thumbs.db" />
+    <Content Remove="wwwroot\Admin\acrossTab-bg.png" />
+    <Content Remove="wwwroot\Admin\acrossTab-close.png" />
+    <Content Remove="wwwroot\Admin\acrossTab.png" />
+    <Content Remove="wwwroot\Admin\admin-login-bg.jpg" />
+    <Content Remove="wwwroot\Admin\admin-loginform-bg.png" />
+    <Content Remove="wwwroot\Admin\close.png" />
+    <Content Remove="wwwroot\Admin\hamburger-retina.gif" />
+    <Content Remove="wwwroot\Admin\hamburger.gif" />
+    <Content Remove="wwwroot\Admin\icon-add.png" />
+    <Content Remove="wwwroot\Admin\icon-pass.png" />
+    <Content Remove="wwwroot\Admin\icon-user.png" />
+    <Content Remove="wwwroot\Admin\icon_arrow.png" />
+    <Content Remove="wwwroot\Admin\icon_error_s.png" />
+    <Content Remove="wwwroot\Admin\icon_jt2.png" />
+    <Content Remove="wwwroot\Admin\icon_right_s.png" />
+    <Content Remove="wwwroot\Admin\icon_warning_s.png" />
+    <Content Remove="wwwroot\Admin\loading.gif" />
+    <Content Remove="wwwroot\Admin\loading_072.gif" />
+    <Content Remove="wwwroot\Admin\logo.png" />
+    <Content Remove="wwwroot\Admin\next.png" />
+    <Content Remove="wwwroot\Admin\prev.png" />
+    <Content Remove="wwwroot\Admin\sort_asc.png" />
+    <Content Remove="wwwroot\Admin\sort_both.png" />
+    <Content Remove="wwwroot\Admin\sort_desc.png" />
+    <Content Remove="wwwroot\Admin\totop.png" />
+    <Content Remove="wwwroot\Admin\user.png" />
+    <Content Remove="wwwroot\Admin\images\Thumbs.db" />
+    <Content Remove="wwwroot\Admin\images\acrossTab-bg.png" />
+    <Content Remove="wwwroot\Admin\images\acrossTab-close.png" />
+    <Content Remove="wwwroot\Admin\images\acrossTab.png" />
+    <Content Remove="wwwroot\Admin\images\admin-login-bg.jpg" />
+    <Content Remove="wwwroot\Admin\images\admin-loginform-bg.png" />
+    <Content Remove="wwwroot\Admin\images\close.png" />
+    <Content Remove="wwwroot\Admin\images\hamburger-retina.gif" />
+    <Content Remove="wwwroot\Admin\images\hamburger.gif" />
+    <Content Remove="wwwroot\Admin\images\icon-add.png" />
+    <Content Remove="wwwroot\Admin\images\icon-pass.png" />
+    <Content Remove="wwwroot\Admin\images\icon-user.png" />
+    <Content Remove="wwwroot\Admin\images\icon_arrow.png" />
+    <Content Remove="wwwroot\Admin\images\icon_error_s.png" />
+    <Content Remove="wwwroot\Admin\images\icon_jt2.png" />
+    <Content Remove="wwwroot\Admin\images\icon_right_s.png" />
+    <Content Remove="wwwroot\Admin\images\icon_warning_s.png" />
+    <Content Remove="wwwroot\Admin\images\loading.gif" />
+    <Content Remove="wwwroot\Admin\images\loading_072.gif" />
+    <Content Remove="wwwroot\Admin\images\logo.png" />
+    <Content Remove="wwwroot\Admin\images\next.png" />
+    <Content Remove="wwwroot\Admin\images\prev.png" />
+    <Content Remove="wwwroot\Admin\images\sort_asc.png" />
+    <Content Remove="wwwroot\Admin\images\sort_both.png" />
+    <Content Remove="wwwroot\Admin\images\sort_desc.png" />
+    <Content Remove="wwwroot\Admin\images\totop.png" />
+    <Content Remove="wwwroot\Admin\images\user.png" />
+    <Content Remove="wwwroot\Admin\js\DD_belatedPNG_0.0.8a-min.js" />
+    <Content Remove="wwwroot\Admin\js\H-ui.admin.js" />
+    <Content Remove="wwwroot\Admin\js\H-ui.js" />
+    <Content Remove="wwwroot\Admin\js\PIE_IE678.js" />
+    <Content Remove="wwwroot\Admin\js\Validform_v5.3.2_min.js" />
+    <Content Remove="wwwroot\Admin\js\de_DE.txt" />
+    <Content Remove="wwwroot\Admin\js\dropzone.min.js" />
+    <Content Remove="wwwroot\Admin\js\html5.js" />
+    <Content Remove="wwwroot\Admin\js\jquery.SuperSlide.2.1.1.js" />
+    <Content Remove="wwwroot\Admin\js\jquery.cookie.js" />
+    <Content Remove="wwwroot\Admin\js\jquery.dataTables.min.js" />
+    <Content Remove="wwwroot\Admin\js\jquery.min.1.8.1.js" />
+    <Content Remove="wwwroot\Admin\js\jquery.min.js" />
+    <Content Remove="wwwroot\Admin\js\pagenav.cn.js" />
+    <Content Remove="wwwroot\Admin\js\passwordStrength-min.js" />
+    <Content Remove="wwwroot\Admin\js\preview.js" />
+    <Content Remove="wwwroot\Admin\js\respond.min.js" />
+    <Content Remove="wwwroot\Admin\layer\layer.min.js" />
+    <Content Remove="wwwroot\Admin\layer\extend\layer.ext.js" />
+    <Content Remove="wwwroot\Admin\layer\skin\layer.css" />
+    <Content Remove="wwwroot\Admin\layer\skin\layer.ext.css" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\icon_ext.png" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\textbg.png" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\xubox_ico0.png" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\xubox_loading0.gif" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\xubox_loading1.gif" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\xubox_loading2.gif" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\xubox_loading3.gif" />
+    <Content Remove="wwwroot\Admin\layer\skin\default\xubox_title0.png" />
+    <Content Remove="Areas\Admin\Views\_ViewImports.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\admin\css\H-ui.admin.css" />
+    <None Include="wwwroot\admin\css\H-ui.css" />
+    <None Include="wwwroot\admin\css\H-ui.login.css" />
+    <None Include="wwwroot\admin\css\dropzone.css" />
+    <None Include="wwwroot\admin\css\lightbox.css" />
+    <None Include="wwwroot\admin\font\FontAwesome.otf" />
+    <None Include="wwwroot\admin\font\font-awesome-ie7.css" />
+    <None Include="wwwroot\admin\font\font-awesome-ie7.min.css" />
+    <None Include="wwwroot\admin\font\font-awesome.css" />
+    <None Include="wwwroot\admin\font\font-awesome.min.css" />
+    <None Include="wwwroot\admin\font\fontawesome-webfont.eot" />
+    <None Include="wwwroot\admin\font\fontawesome-webfont.svg" />
+    <None Include="wwwroot\admin\font\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\admin\font\fontawesome-webfont.woff" />
+    <None Include="wwwroot\admin\images\Thumbs.db" />
+    <None Include="wwwroot\admin\images\acrossTab-bg.png" />
+    <None Include="wwwroot\admin\images\acrossTab-close.png" />
+    <None Include="wwwroot\admin\images\acrossTab.png" />
+    <None Include="wwwroot\admin\images\admin-login-bg.jpg" />
+    <None Include="wwwroot\admin\images\admin-loginform-bg.png" />
+    <None Include="wwwroot\admin\images\close.png" />
+    <None Include="wwwroot\admin\images\hamburger-retina.gif" />
+    <None Include="wwwroot\admin\images\hamburger.gif" />
+    <None Include="wwwroot\admin\images\icon-add.png" />
+    <None Include="wwwroot\admin\images\icon-pass.png" />
+    <None Include="wwwroot\admin\images\icon-user.png" />
+    <None Include="wwwroot\admin\images\icon_arrow.png" />
+    <None Include="wwwroot\admin\images\icon_error_s.png" />
+    <None Include="wwwroot\admin\images\icon_jt2.png" />
+    <None Include="wwwroot\admin\images\icon_right_s.png" />
+    <None Include="wwwroot\admin\images\icon_warning_s.png" />
+    <None Include="wwwroot\admin\images\loading.gif" />
+    <None Include="wwwroot\admin\images\loading_072.gif" />
+    <None Include="wwwroot\admin\images\logo.png" />
+    <None Include="wwwroot\admin\images\next.png" />
+    <None Include="wwwroot\admin\images\prev.png" />
+    <None Include="wwwroot\admin\images\sort_asc.png" />
+    <None Include="wwwroot\admin\images\sort_both.png" />
+    <None Include="wwwroot\admin\images\sort_desc.png" />
+    <None Include="wwwroot\admin\images\totop.png" />
+    <None Include="wwwroot\admin\images\user.png" />
+    <None Include="wwwroot\admin\js\DD_belatedPNG_0.0.8a-min.js" />
+    <None Include="wwwroot\admin\js\H-ui.admin.js" />
+    <None Include="wwwroot\admin\js\H-ui.js" />
+    <None Include="wwwroot\admin\js\PIE_IE678.js" />
+    <None Include="wwwroot\admin\js\Validform_v5.3.2_min.js" />
+    <None Include="wwwroot\admin\js\de_DE.txt" />
+    <None Include="wwwroot\admin\js\dropzone.min.js" />
+    <None Include="wwwroot\admin\js\html5.js" />
+    <None Include="wwwroot\admin\js\jquery.SuperSlide.2.1.1.js" />
+    <None Include="wwwroot\admin\js\jquery.cookie.js" />
+    <None Include="wwwroot\admin\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\admin\js\jquery.min.1.8.1.js" />
+    <None Include="wwwroot\admin\js\jquery.min.js" />
+    <None Include="wwwroot\admin\js\pagenav.cn.js" />
+    <None Include="wwwroot\admin\js\passwordStrength-min.js" />
+    <None Include="wwwroot\admin\js\preview.js" />
+    <None Include="wwwroot\admin\js\respond.min.js" />
+    <None Include="wwwroot\admin\layer\layer.min.js" />
+    <None Include="wwwroot\admin\layer\extend\layer.ext.js" />
+    <None Include="wwwroot\admin\layer\skin\layer.css" />
+    <None Include="wwwroot\admin\layer\skin\layer.ext.css" />
+    <None Include="wwwroot\admin\layer\skin\default\icon_ext.png" />
+    <None Include="wwwroot\admin\layer\skin\default\textbg.png" />
+    <None Include="wwwroot\admin\layer\skin\default\xubox_ico0.png" />
+    <None Include="wwwroot\admin\layer\skin\default\xubox_loading0.gif" />
+    <None Include="wwwroot\admin\layer\skin\default\xubox_loading1.gif" />
+    <None Include="wwwroot\admin\layer\skin\default\xubox_loading2.gif" />
+    <None Include="wwwroot\admin\layer\skin\default\xubox_loading3.gif" />
+    <None Include="wwwroot\admin\layer\skin\default\xubox_title0.png" />
   </ItemGroup>
 </Project>
