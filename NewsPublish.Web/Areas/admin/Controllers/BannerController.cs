@@ -58,7 +58,7 @@ namespace NewsPublish.Web.Areas.admin.Controllers
                         Directory.CreateDirectory(absolutePath);
                     }
                     string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                    var filePath = absolutePath + "\\" + fileName;
+                    var filePath = absolutePath + "/" + fileName;
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {

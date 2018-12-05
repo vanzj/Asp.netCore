@@ -95,6 +95,7 @@ namespace NewsPublish.Service
         /// <returns>The news classify list.</returns>
         public ResponseModel GetNewsClassifyList()
         {
+
             var classifys = _db.NewsClassify.OrderByDescending(c => c.Sort).ToList();
             var response = new ResponseModel { code = 200, result = "新闻类别集合获取成功" };
             response.data = new List<NewsClassifyModel>();
@@ -117,23 +118,31 @@ namespace NewsPublish.Service
         /// <param name="addNews">Add news.</param>
         public ResponseModel AddNews(AddNews addNews)
         {
-            var classify = this.GetOneNewsClassify(c => c.Id == addNews.NewsClassifyId);
-            if (classify == null)
-                return new ResponseModel() { code = 0, result = "没有对应的分类" };
-            var n = new News
+            try
             {
-                NewsClassifyId = addNews.NewsClassifyId,
+                var classify = this.GetOneNewsClassify(c => c.Id == addNews.NewsClassifyId);
+                if (classify == null)
+                    return new ResponseModel() { code = 0, result = "没有对应的分类" };
+                var n = new News
+                {
+ NewsClassifyId = addNews.NewsClassifyId,
                 Title = addNews.Title,
                 Image = addNews.Image,
                 Contents = addNews.Contents,
-                Remark = addNews.Remark,
-                PublishDate = DateTime.Now
-            };
-            _db.News.Add(n);
-            int i = _db.SaveChanges();
-            if (i > 0)
-                return new ResponseModel { code = 200, result = "新闻添加成功" };
-            return new ResponseModel { code = 0, result = "新闻添加失败" };
+                PublishDate = DateTime.Now,
+                Remark = addNews.Remark
+                
+                };
+                _db.News.Add(n);
+                int i = _db.SaveChanges();
+                if (i > 0)
+                    return new ResponseModel { code = 200, result = "新闻添加成功" };
+                return new ResponseModel { code = 0, result = "新闻添加失败" };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel { code = 0, result = ex.Message.ToString() };
+            }
         }
         /// <summary>
         /// Gets the one news.
@@ -185,41 +194,41 @@ namespace NewsPublish.Service
         /// <returns>The page query.</returns>
         public ResponseModel NewsPageQuery(int pageSize, int PageIndex, out int total, List<Expression<Func<News, bool>>> where)
         {
-          
-                var list = _db.News.Include("NewClassify").Include("NewsComments");
-                foreach (var item in where)
-                {
-                    list = list.Where(item);
-                }
-                total = list.Count();
-      
-                var templist = list.ToList();
-                var pageData = list.OrderByDescending(c => c.PublishDate).Skip(pageSize * (PageIndex - 1)).Take(pageSize).ToList();
 
-                var response = new ResponseModel
-                {
-                    code = 200,
-                    result = "分页新闻获取成功"
-                };
-                response.data = new List<NewsModel>();
-                foreach (var news in pageData)
-                {
-                    response.data.Add(new NewsModel
-                    {
-                        Id = news.Id,
-                        ClassifyName = news.NewClassify.Name,
-                        Title = news.Title,
-                        Image = news.Image,
-                        Contents = news.Contents,
-                        PublishDate = news.PublishDate.ToString("yyyy-MM-dd"),
-                        CommentCount = news.NewsComments.Count(),
-                        Remark = news.Remark
-                    });
-                }
-                return response;
+            var list = _db.News.Include("NewClassify").Include("NewsComments");
+            foreach (var item in where)
+            {
+                list = list.Where(item);
+            }
+            total = list.Count();
 
-            
-           
+            var templist = list.ToList();
+            var pageData = list.OrderByDescending(c => c.PublishDate).Skip(pageSize * (PageIndex - 1)).Take(pageSize).ToList();
+
+            var response = new ResponseModel
+            {
+                code = 200,
+                result = "分页新闻获取成功"
+            };
+            response.data = new List<NewsModel>();
+            foreach (var news in pageData)
+            {
+                response.data.Add(new NewsModel
+                {
+                    Id = news.Id,
+                    ClassifyName = news.NewClassify.Name,
+                    Title = news.Title,
+                    Image = news.Image,
+                    Contents = news.Contents,
+                    PublishDate = news.PublishDate.ToString("yyyy-MM-dd"),
+                    CommentCount = news.NewsComments.Count(),
+                    Remark = news.Remark
+                });
+            }
+            return response;
+
+
+
         }
 
         /// <summary>
@@ -306,11 +315,12 @@ namespace NewsPublish.Service
         /// <returns>The news count.</returns>
         public ResponseModel GetNewsCount(Expression<Func<News, bool>> where)
         {
-            var   count = _db.News.Where(where).Count();
+            var count = _db.News.Where(where).Count();
             return new ResponseModel { code = 200, result = "获取成功", data = count };
         }
 
-        public ResponseModel GetRecommendNewsLis(int newsId){
+        public ResponseModel GetRecommendNewsLis(int newsId)
+        {
             var news = _db.News.FirstOrDefault(c => c.Id == newsId);
             if (news != null)
                 return new ResponseModel { code = 0, result = "新闻不存在" };
@@ -338,7 +348,7 @@ namespace NewsPublish.Service
             }
             return response;
         }
-         
+
     }
 
 }

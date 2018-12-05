@@ -8,10 +8,7 @@ namespace NewsPublish.Model.Entity
     {
 
 
-        public News()
-        {
-            NewsComments = new HashSet<NewsComment>();
-        }
+        public News() => NewsComments = new HashSet<NewsComment>();
         public int Id
         {
             get;
