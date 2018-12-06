@@ -179,7 +179,7 @@ namespace NewsPublish.Service
         public ResponseModel DeleteOneNews(int id)
         {
             var news = _db.News.FirstOrDefault(c => c.Id == id);
-            if (news != null)
+            if (news == null)
                 return new ResponseModel { code = 0, result = "没有找到该ID新闻" };
             _db.News.Remove(news);
             int i = _db.SaveChanges();

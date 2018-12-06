@@ -40,7 +40,9 @@
                 }
             </select>
             &nbsp;
-            <input type="text" class="input-text" style="width:250px" placeholder="输入新闻标题" id="keyword" name="keyword">&nbsp;<button type="button" class="btn btn-success" onclick="search()"><i class="icon-search"></i> 搜新闻</button>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入新闻标题" id="keyword" name="keyword">
+            &nbsp;
+            <button type="button" class="btn btn-success" onclick="search()"><i class="icon-search"></i> 搜新闻</button>
         </div>
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
@@ -134,7 +136,7 @@
                 $.ajax({
                     type: 'post',
                     async: true,
-                    url: '/Admin/News/DelNews',
+                    url: '/Admin/News/NewsDel',
                     data: { id: id },
                     success: function (result) {
                         if (result.code == 200) {

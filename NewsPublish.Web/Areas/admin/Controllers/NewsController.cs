@@ -114,6 +114,10 @@ namespace NewsPublish.Web.Areas.admin.Controllers
      
         }
 
+        public   JsonResult NewsDel(int id)
+        {
+            return Json(_newsService.DeleteOneNews(id));
+        }
 
         #region Classify
         public ActionResult NewsClassify()
