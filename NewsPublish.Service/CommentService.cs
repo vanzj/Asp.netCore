@@ -9,11 +9,11 @@ using NewsPublish.Model.Response;
 
 namespace NewsPublish.Service
 {
-    public class CommetService
+    public class CommentService
     {
         private Db _db;
         private NewsService _newsService;
-        public CommetService (Db db,NewsService newsService)
+        public CommentService (Db db,NewsService newsService)
         {
             _db = db;
             _newsService = newsService;
@@ -95,5 +95,7 @@ namespace NewsPublish.Service
             response.data.Reverse();
             return response;
         }
+
+
     }
 }

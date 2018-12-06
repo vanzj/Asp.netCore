@@ -36,7 +36,7 @@ namespace NewsPublish.Web
                options.UseMySql(Configuration.GetConnectionString("MySqlConnection")));//添加Mysql支持
             //服务注入
             services.AddTransient<BannerService>();
-            services.AddTransient<CommetService>();
+            services.AddTransient<CommentService>();
             services.AddTransient<Db>();
             services.AddTransient<NewsService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
