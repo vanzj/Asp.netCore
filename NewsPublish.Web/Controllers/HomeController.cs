@@ -4,15 +4,29 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NewsPublish.Service;
 using NewsPublish.Web.Models;
 
 namespace NewsPublish.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private NewsService _newsService;
+        private BannerService _bannerService;
+
+        public HomeController(NewsService newsService,BannerService bannerService)
+        {
+            _newsService = newsService;
+            _bannerService=bannerService;
+        }
+
+
+
+
         public IActionResult Index()
         {
-            return View();
+            ViewData["Title"] = "首页";
+            return View(_newsService.GetNewsClassifyList());
         }
 
         public IActionResult About()
