@@ -46,7 +46,8 @@
                 <td>@m.Contents</td>
                 <td>@m.AddTime</td>
                 <td>@m.Remark </td>
-                <td class="f-14"><a title="删除" href="javascript:;" onClick="del(this,'1')" class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
+                <td class="f-14"><a title="删除" href="javascript:;" onClick="del(this,@m.Id)" 
+                class="ml-5" style="text-decoration:none"><i class="icon-trash"></i></a></td>
             </tr>
 }
 }
@@ -63,11 +64,34 @@
     <script type="text/javascript" src="/admin/plugin/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="/admin/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/admin/js/H-ui.admin.js"></script>
-    <script>function del(obj,id){
+    <script>
+function del(obj,id){
     layer.confirm('确认要删除吗？',function(index){
-        $(obj).parents("tr").remove();
-        layer.msg('已删除!',1);
+        @*$(obj).parents("tr").remove();
+        layer.msg('已删除!',1);*@
+    $.ajax({
+             type:'post',
+             async:true,
+             url:'/admin/Comment/Commentdel',
+             data:{CommentId:id},
+             success: function(data){
+                  if  (data.code =  200){
+                      layer.msg(data.result,1);
+                         reload();
+                     }
+                 else{
+                       layer.msg(data.result,1)
+                }
+             }
+          });
+
     });
-}</script>
+}
+         function reload()
+    {
+    location.replace(location.href);
+     }
+
+    </script>
 </body>
 </html>

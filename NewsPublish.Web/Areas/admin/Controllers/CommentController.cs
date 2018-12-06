@@ -27,5 +27,11 @@ namespace NewsPublish.Web.Areas.admin.Controllers
            
             return View (_commentService.GetCommentList(c=>true));
         }
+
+        public JsonResult CommentDel(int CommentId)
+        {
+            return Json(_commentService.DeleteComment(CommentId));
+        }
+
     }
 }
