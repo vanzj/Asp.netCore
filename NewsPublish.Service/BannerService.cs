@@ -36,6 +36,7 @@ namespace NewsPublish.Service
 /// </summary>
 /// <returns>The banner list.</returns>
         public ResponseModel GetBannerList(){
+  
             var banners = _db.Banner.ToList().OrderByDescending(c => c.AddTime);
             var response =new ResponseModel();
             response.code = 200;

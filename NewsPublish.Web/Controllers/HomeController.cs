@@ -29,6 +29,13 @@ namespace NewsPublish.Web.Controllers
             return View(_newsService.GetNewsClassifyList());
         }
 
+
+        public JsonResult GetBanner()
+        {
+            return Json(_bannerService.GetBannerList());
+        }
+
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
