@@ -239,28 +239,36 @@ namespace NewsPublish.Service
         /// <param name="count">Count.</param>
         public ResponseModel GetNewList(Expression<Func<News, bool>> where, int count)
         {
-            var list = _db.News.Include("NewsClassify").Include("NewsComment").Where(where).OrderByDescending(c => c.PublishDate).Take(count);
-            var response = new ResponseModel
+            try
             {
-                code = 200,
-                result = "新闻列表获取成功"
-            };
-            response.data = new List<NewsModel>();
-            foreach (var news in list)
-            {
-                response.data.Add(new NewsModel
+                var list = _db.News.Include("NewClassify").Include("NewsComments").Where(where).OrderByDescending(c => c.PublishDate).Take(count).ToList();
+                var response = new ResponseModel
                 {
-                    Id = news.Id,
-                    ClassifyName = news.NewClassify.Name,
-                    Title = news.Title,
-                    Image = news.Image,
-                    Contents = news.Contents.Length > 50 ? news.Contents.Substring(0, 50) : news.Contents,
-                    PublishDate = news.PublishDate.ToString("yyyy-MM-dd"),
-                    CommentCount = news.NewsComments.Count(),
-                    Remark = news.Remark
-                });
+                    code = 200,
+                    result = "新闻列表获取成功"
+                };
+             
+                response.data = new List<NewsModel>();
+                foreach (var news in list)
+                {
+                    response.data.Add(new NewsModel
+                    {
+                        Id = news.Id,
+                        ClassifyName = news.NewClassify.Name,
+                        Title = news.Title,
+                        Image = news.Image,
+                        Contents = news.Contents.Length > 50 ? news.Contents.Substring(0, 50) : news.Contents,
+                        PublishDate = news.PublishDate.ToString("yyyy-MM-dd"),
+                        CommentCount = news.NewsComments.Count(),
+                        Remark = news.Remark
+                    });
+                }
+                return response;
             }
-            return response;
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         /// <summary>

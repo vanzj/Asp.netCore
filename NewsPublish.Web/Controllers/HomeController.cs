@@ -29,36 +29,25 @@ namespace NewsPublish.Web.Controllers
             return View(_newsService.GetNewsClassifyList());
         }
 
-
+        [HttpGet]
         public JsonResult GetBanner()
         {
             return Json(_bannerService.GetBannerList());
         }
-
-
-        public IActionResult About()
+        [HttpGet]
+        public JsonResult GetNewsCount()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return Json(_newsService.GetNewsCount(c=>true));
         }
-
-        public IActionResult Contact()
+        [HttpGet]
+        public JsonResult GetNews()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return Json(_newsService.GetNewList(c => true, 6));
         }
-
-        public IActionResult Privacy()
+        [HttpGet]
+        public JsonResult GetOneNews(int id)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Json(_newsService.GetOneNews(id));
         }
     }
 }
