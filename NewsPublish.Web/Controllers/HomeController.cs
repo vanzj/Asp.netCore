@@ -49,5 +49,21 @@ namespace NewsPublish.Web.Controllers
         {
             return Json(_newsService.GetOneNews(id));
         }
+        [HttpGet]
+        public JsonResult GetNewCommentNews()
+        {
+            return Json(_newsService.GetNewCommentNewsList(c => true, 5));
+        }
+        [HttpPost]
+        public JsonResult GetSearchOneNews(string keyword)
+        {
+            return Json(_newsService.GetSearchOneNews(c => c.Title.Contains(keyword)));
+        }
+
+        public IActionResult Wrong()
+        {
+            ViewData["Title"] = "404";
+            return View(_newsService.GetNewsClassifyList());
+        }
     }
 }

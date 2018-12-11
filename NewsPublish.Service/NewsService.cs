@@ -151,7 +151,7 @@ namespace NewsPublish.Service
         /// <param name="id">Identifier.</param>
         public ResponseModel GetOneNews(int id)
         {
-            var news = _db.News.Include("NewsClassify").Include("NewsComment").FirstOrDefault(c => c.Id == id);
+            var news = _db.News.Include("NewClassify").Include("NewsComments").FirstOrDefault(c => c.Id == id);
             if (news != null)
                 return new ResponseModel { code = 0, result = "没有找到该ID新闻" };
             return new ResponseModel
@@ -219,7 +219,7 @@ namespace NewsPublish.Service
                     ClassifyName = news.NewClassify.Name,
                     Title = news.Title,
                     Image = news.Image,
-                    Contents = news.Contents,
+                    Contents = news.Contents.Length > 50 ? news.Contents.Substring(0, 50) : news.Contents,
                     PublishDate = news.PublishDate.ToString("yyyy-MM-dd"),
                     CommentCount = news.NewsComments.Count(),
                     Remark = news.Remark
@@ -280,9 +280,9 @@ namespace NewsPublish.Service
         public ResponseModel GetNewCommentNewsList(Expression<Func<News, bool>> where, int topCount)
         {
             var newsIds = _db.NewsComment.OrderByDescending(c => c.AddTime).
-                             GroupBy(c => c.NewsId).Select(c => c.Key).Take(topCount);
-            var list = _db.News.Include("NewsClassify").Include("NewsComment").
-                          Where(c => newsIds.Contains(c.Id)).OrderByDescending(c => c.PublishDate);
+                             GroupBy(c => c.NewsId).Select(c => c.Key).Take(topCount).ToList();
+            var list = _db.News.Include("NewClassify").Include("NewsComments").
+                          Where(c => newsIds.Contains(c.Id)).OrderByDescending(c => c.PublishDate).ToList();
             var response = new ResponseModel
             {
                 code = 200,
@@ -332,7 +332,7 @@ namespace NewsPublish.Service
             var news = _db.News.FirstOrDefault(c => c.Id == newsId);
             if (news != null)
                 return new ResponseModel { code = 0, result = "新闻不存在" };
-            var newlist = _db.News.Include("NewsComment").Where(c => c.NewsClassifyId == news.NewsClassifyId && c.Id != newsId)
+            var newlist = _db.News.Include("NewsComments").Where(c => c.NewsClassifyId == news.NewsClassifyId && c.Id != newsId)
                             .OrderByDescending(c => c.PublishDate).OrderByDescending(c => c.NewsComments.Count).Take(5);
             var response = new ResponseModel
             {
