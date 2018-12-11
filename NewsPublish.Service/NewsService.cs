@@ -281,8 +281,10 @@ namespace NewsPublish.Service
         {
             var newsIds = _db.NewsComment.OrderByDescending(c => c.AddTime).
                              GroupBy(c => c.NewsId).Select(c => c.Key).Take(topCount).ToList();
+           
             var list = _db.News.Include("NewClassify").Include("NewsComments").
-                          Where(c => newsIds.Contains(c.Id)).OrderByDescending(c => c.PublishDate).ToList();
+                          Where(c => newsIds.Contains(c.Id) ) .Where(where).OrderByDescending(c => c.PublishDate).ToList();
+         
             var response = new ResponseModel
             {
                 code = 200,
