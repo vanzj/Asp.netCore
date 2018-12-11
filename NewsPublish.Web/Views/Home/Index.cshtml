@@ -72,12 +72,12 @@
     </div>
     <div class="widget widget_sentence">
         <a href="http://study.163.com/instructor/1025318795.htm" target="_blank" rel="nofollow">
-            <img style="width: 100%" src="images//201610241224221511.jpg" alt="专业网站建设">
+            <img style="width: 100%" src="/images/201610241224221511.jpg" alt="专业网站建设">
         </a>
     </div>
     <div class="widget widget_sentence">
         <a href="http://study.163.com/instructor/1025318795.htm" target="_blank" rel="nofollow">
-            <img style="width: 100%" src="images/ad.jpg">
+            <img style="width: 100%" src="/images/ad.jpg">
         </a>
     </div>
     <div class="widget widget_sentence">
@@ -98,7 +98,7 @@
   function getBanner() {
     $.ajax({
       type: 'get',
-      url: 'Home/GetBanner',
+      url: '/Home/GetBanner',
       success: function (data) {
         if (data.code == 200) {
           $(".carousel-inner").empty();
@@ -124,7 +124,7 @@
   function getNewsCount() {
     $.ajax({
       type: 'get',
-      url: 'Home/GetNewsCount',
+      url: '/Home/GetNewsCount',
       success: function (data) {
         if (data.code == 200) {
           $("#NewsCount").text(data.data + "篇")
@@ -137,7 +137,7 @@
   function getNews() {
     $.ajax({
       type: 'get',
-      url: 'Home/GetNews',
+      url: '/Home/GetNews',
       success: function (data) {
         if (data.code == 200) {
           $("#Home_news").empty();
@@ -154,7 +154,7 @@
     function getNewCommentNews() {
     $.ajax({
       type: 'get',
-      url: 'Home/GetNewCommentNews',
+      url: '/Home/GetNewCommentNews',
       success: function (data) {
         if (data.code == 200) {
           $("#New_Comment_news").empty();
@@ -172,7 +172,7 @@ function getSearchOneNews() {
   var keyword = $("#keyword").val();
   $.ajax({
       type: 'post',
-      url: 'Home/getSearchOneNews',
+      url: '/Home/getSearchOneNews',
       data: {keyword: keyword},
       success: function (data) {
         if (data.code == 200) {

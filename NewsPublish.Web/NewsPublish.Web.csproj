@@ -29,6 +29,7 @@
     <Folder Include="wwwroot\NewsPic\" />
     <Folder Include="Areas\admin\Views\Comment\" />
     <Folder Include="wwwroot\BannerPic\" />
+    <Folder Include="Views\News\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Admin\css\H-ui.admin.css" />
