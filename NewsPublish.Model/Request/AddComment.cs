@@ -7,11 +7,7 @@ namespace NewsPublish.Model.Request
         {
         }
 
-        public int Id
-        {
-            get;
-            set;
-        }
+ 
         public int NewsId
         {
             get;
@@ -22,16 +18,7 @@ namespace NewsPublish.Model.Request
             get;
             set;
         }
-        public DateTime AddTime
-        {
-            get;
-            set;
-        }
-        public string Remark
-        {
-            get;
-            set;
-        }
+       
        
     }
 }

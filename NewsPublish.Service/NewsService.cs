@@ -152,7 +152,7 @@ namespace NewsPublish.Service
         public ResponseModel GetOneNews(int id)
         {
             var news = _db.News.Include("NewClassify").Include("NewsComments").FirstOrDefault(c => c.Id == id);
-            if (news != null)
+            if (news == null)
                 return new ResponseModel { code = 0, result = "没有找到该ID新闻" };
             return new ResponseModel
             {
@@ -316,8 +316,8 @@ namespace NewsPublish.Service
         {
             var news = _db.News.Where(where).FirstOrDefault();
             if (news == null)
-                return new ResponseModel { code = 0, result = "新闻搜索失败" };
-            return new ResponseModel { code = 200, result = "新闻搜索成功" };
+                return new ResponseModel { code = 0, result = "新闻搜索失败"};
+            return new ResponseModel { code = 200, result = "新闻搜索成功", data = news };
         }
         /// <summary>
         /// Gets the news count.
@@ -332,14 +332,14 @@ namespace NewsPublish.Service
         public ResponseModel GetRecommendNewsLis(int newsId)
         {
             var news = _db.News.FirstOrDefault(c => c.Id == newsId);
-            if (news != null)
+            if (news == null)
                 return new ResponseModel { code = 0, result = "新闻不存在" };
             var newlist = _db.News.Include("NewsComments").Where(c => c.NewsClassifyId == news.NewsClassifyId && c.Id != newsId)
-                            .OrderByDescending(c => c.PublishDate).OrderByDescending(c => c.NewsComments.Count).Take(5);
+                            .OrderByDescending(c => c.PublishDate).OrderByDescending(c => c.NewsComments.Count).Take(5).ToList();
             var response = new ResponseModel
             {
                 code = 200,
-                result = "最新评论新闻获取成功"
+                result = "获取相关推荐新闻成功"
             };
             response.data = new List<NewsModel>();
             foreach (var n in newlist)

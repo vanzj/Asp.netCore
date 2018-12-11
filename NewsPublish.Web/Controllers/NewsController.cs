@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NewsPublish.Model.Request;
 using NewsPublish.Model.Response;
 using NewsPublish.Service;
 
@@ -14,11 +15,11 @@ namespace NewsPublish.Web.Controllers
     {
 
         private NewsService _newsService;
-       
-        public NewsController(NewsService newsService)
+        private CommentService _commentService;
+        public NewsController(NewsService newsService, CommentService commentService)
         {
             _newsService = newsService;
-        
+            _commentService = commentService;
         }
 
         // GET: /<controller>/
@@ -47,5 +48,56 @@ namespace NewsPublish.Web.Controllers
 
             return View(_newsService.GetNewsClassifyList());
         }
+        // GET: /<controller>/
+        public IActionResult Detail(int id)
+        {
+            if (id < 0)
+                Response.Redirect("/Home/Index");
+            var News = _newsService.GetOneNews(id);
+            ViewData["ClassifyName"] = "首页";
+            ViewData["News"] = News;
+            ViewData["NewsTitle"] = "未找到";
+              ViewData["CommentList"] = new ResponseModel();
+            ViewData["RecommendNewsLis"] = new ResponseModel();
+            if (News.code == 0)
+            {
+                Response.Redirect("/Home/Index");
+            }
+            else
+            {
+                ViewData["Title"] = News.data.Title;
+                ViewData["NewsTitle"] = News.data.Title;
+                var commentList = _commentService.GetCommentList(c => c.NewsId == id);
+                ViewData["CommentList"] = commentList;
+                var recommendNewsLis = _newsService.GetRecommendNewsLis(News.data.Id);
+                ViewData["RecommendNewsLis"] = recommendNewsLis;
+            }
+
+            return View(_newsService.GetNewsClassifyList());
+        }
+
+
+
+        [HttpPost]
+        public JsonResult GetSearchOneNews(string keyword)
+        {
+            return Json(_newsService.GetSearchOneNews(c => c.Title.Contains(keyword)&&c.NewClassify.Name == ViewData["ClassifyName"].ToString()));
+        }
+
+        public IActionResult Wrong()
+        {
+            ViewData["Title"] = "404";
+            return View(_newsService.GetNewsClassifyList());
+        }
+
+        public JsonResult PostComment(AddComment addComment)
+        {
+            return Json(_commentService.AddComment(addComment));
+        }
+
+
     }
+
+
 }
+

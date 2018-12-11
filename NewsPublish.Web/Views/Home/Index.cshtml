@@ -143,7 +143,7 @@
           $("#Home_news").empty();
           for (var i = 0; i < data.data.length; i++) {
             var m = data.data[i];
-            var news = '<article class="excerpt excerpt-1" style=""><a class="focus" href = "" title = "' + m.title + '" target = "_blank"><img class="thumb" data-original="' + m.image + '" src="'+m.image+'" alt="'+m.title+'" style="display: inline;"  draggable="false"></a><header><h2><a href="show.html" title="' + m.title + '" target="_blank">' + m.title + '</a></h2></header><p class="meta"><time class="time"><i class="glyphicon glyphicon-time"></i>'+m.publishDate+'</time><a class="comment" title="评论" target="_blank"><i class="glyphicon glyphicon-comment"></i>'+m.commentCount+'</a></p><p class="note">'+m.contents+'</p></article>';
+            var news = '<article class="excerpt excerpt-1" style=""><a class="focus" href = "" title = "' + m.title + '" target = "_blank"><img class="thumb" data-original="' + m.image + '" src="'+m.image+'" alt="'+m.title+'" style="display: inline;"  draggable="false"></a><header><h2><a href="News/Detail?id=' + m.id + '" title="' + m.title + '" target="_blank">' + m.title + '</a></h2></header><p class="meta"><time class="time"><i class="glyphicon glyphicon-time"></i>'+m.publishDate+'</time><a class="comment" title="评论" target="_blank"><i class="glyphicon glyphicon-comment"></i>'+m.commentCount+'</a></p><p class="note">'+m.contents+'</p></article>';
               $("#Home_news").append(news);
           }
         }
@@ -160,7 +160,7 @@
           $("#New_Comment_news").empty();
           for (var i = 0; i < data.data.length; i++) {
             var m = data.data[i];
-                var news = '<li><a title="' + m.title + '" href="show.html"><span class="thumbnail"><img class="thumb" data-original="' + m.image + '" src="' + m.image + '" alt="' + m.title + '" style="display: block;"></span><span class="text">' + m.title + '</span><span class="muted"><i class="glyphicon glyphicon-time"></i>'+m.publishDate+'</a></li>';
+                var news = '<li><a title="' + m.title + '" href="News/Detail?id=' + m.id + '"><span class="thumbnail"><img class="thumb" data-original="' + m.image + '" src="' + m.image + '" alt="' + m.title + '" style="display: block;"></span><span class="text">' + m.title + '</span><span class="muted"><i class="glyphicon glyphicon-time"></i>'+m.publishDate+'</a></li>';
                   $("#New_Comment_news").append(news);
           }
         }
@@ -176,7 +176,7 @@ function getSearchOneNews() {
       data: {keyword: keyword},
       success: function (data) {
         if (data.code == 200) {
-          window.open();
+            window.open("News/Detail?id="+data.data.id);
         } else {
           window.open("/home/wrong");
         }

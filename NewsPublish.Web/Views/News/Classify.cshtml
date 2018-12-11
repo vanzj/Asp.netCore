@@ -14,9 +14,9 @@
                 foreach (var news in response.data)
                 {
                     <article class="excerpt">
-                        <a class="focus" href="/New/Detail?id=@news.Id" title="@news.Title" target="_blank"><img class="thumb" data-original="@news.Image" src="@news.Image" alt="@news.Title" style="display: inline;"></a>
+                        <a class="focus" href="/News/Detail?id=@news.Id" title="@news.Title" target="_blank"><img class="thumb" data-original="@news.Image" src="@news.Image" alt="@news.Title" style="display: inline;"></a>
                         <header>
-                            <h2><a href="show.html" title="@news.Title" target="_blank">@news.Title</a></h2>
+                            <h2><a href="/News/Detail?id=@news.Id"  title="@news.Title" target="_blank">@news.Title</a></h2>
                         </header>
                         <p class="meta">
                             <time class="time"><i class="glyphicon glyphicon-time"></i>@news.PublishDate</time>
@@ -35,11 +35,11 @@
 <aside class="sidebar">
     <div class="fixed">
         <div class="widget widget_search">
-            <form class="navbar-form" action="/Search" method="post">
+            <form class="navbar-form"  method="post">
                 <div class="input-group">
-                    <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字" maxlength="15" autocomplete="off">
+                    <input type="text" name="keyword" id="keyword" class="form-control" size="35" placeholder="请输入关键字" maxlength="15" autocomplete="off">
                     <span class="input-group-btn">
-                        <button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+                        <button class="btn btn-default btn-search" name="search" type="button" onclick="getSearchOneNews()">搜索</button>
                     </span>
                 </div>
             </form>
@@ -56,7 +56,7 @@
             foreach (var news in responsenewcomment.data)
             {
                 <li>
-                    <a title="@news.Title" href="show.html">
+                    <a title="@news.Title" href="/News/Detail?id=@news.Id" >
                         <span class="thumbnail">
                             <img class="thumb" data-original="@news.Image" src="@news.Image" alt="@news.Title" style="display: block;">
                         </span><span class="text">@news.Title</span><span class="muted">
@@ -80,3 +80,21 @@
         </a>
     </div>
 </aside>
+<script type="text/javascript">
+    function getSearchOneNews() {
+  var keyword = $("#keyword").val();
+  $.ajax({
+      type: 'post',
+      url: '/News/getSearchOneNews',
+      data: {keyword: keyword},
+      success: function (data) {
+        if (data.code == 200) {
+      window.open("News/Detail?id="+data.data.id);
+        } else {
+          window.open("/home/wrong");
+        }
+      }
+    }
+  )
+}
+</script>
